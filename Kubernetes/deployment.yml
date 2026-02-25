@@ -10,12 +10,14 @@ spec:
     matchLabels:
       app: netflix
   strategy:
+    type: RollingUpdate
     rollingUpdate:
       maxSurge: 1
       maxUnavailable: 0
   template:
-    labels:
-      app: netflix
+    metadata:
+      labels:
+        app: netflix
     spec:
       containers:
         - image: prachiii123/nnetflix:1.1
