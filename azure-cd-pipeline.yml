@@ -1,17 +1,23 @@
 trigger: none
 
-
-
 stages:
   - stage: Deploy_Stage
     displayName: "Deploy Stage"
+
     jobs:
       - job: Deploy_App
         displayName: "Deploy App"
+
         pool:
           vmImage: ubuntu-latest
+
         steps:
           - script: |
+              az aks get-credentials \
+                --resource-group netflix-grp \
+                --name netflix-aks \
+                --overwrite-existing
+
               echo "Deploying Manifest file"
               kubectl apply -f Kubernetes/
 
@@ -20,4 +26,4 @@ stages:
 
               echo "Checking the Service"
               kubectl get svc
-            displayName: "Deploy to Kubernetes"
+            displayName: "Connect to AKS and Deploy"
