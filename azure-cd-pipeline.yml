@@ -7,23 +7,14 @@ stages:
     jobs:
       - job: Deploy_App
         displayName: "Deploy App"
-
         pool:
           vmImage: ubuntu-latest
 
         steps:
-          - script: |
-              az aks get-credentials \
-                --resource-group netflix-grp \
-                --name netflix-aks \
-                --overwrite-existing
-
-              echo "Deploying Manifest file"
-              kubectl apply -f Kubernetes/
-
-              echo "Checking the Status of Pods"
-              kubectl get pods
-
-              echo "Checking the Service"
-              kubectl get svc
-            displayName: "Connect to AKS and Deploy"
+          - task: Kubernetes@1
+            displayName: Deploy to AKS
+            inputs:
+              connectionType: 'Kubernetes Service Connection'
+              kubernetesServiceEndpoint: 'Kube-Cluster'
+              command: apply
+              arguments: '-f Kubernetes/'
