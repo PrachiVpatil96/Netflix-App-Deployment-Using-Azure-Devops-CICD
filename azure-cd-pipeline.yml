@@ -1,28 +1,20 @@
-pipeline:
-
 trigger: none
 
-resources:
-  pipelines:
-    - pipeline: ciPipeline
-      source: azure-ci-pipeline.yml
-      trigger: true
-
 stages:
-  - stage: Deploy-Stage
-    displayName: "Deploy-Stage"
+  - stage: Deploy_Stage
+    displayName: "Deploy Stage"
+
     jobs:
-      - job: Deploy-App
-        displayName: "Deploy-App"
+      - job: Deploy_App
+        displayName: "Deploy App"
+        pool:
+          vmImage: ubuntu-latest
+
         steps:
-          - script: 
-              echo "Deploying Manifest file"
-              kubeclt apply -f kubernetes/
-
-              echo "Checking the Status of Pods"
-              kubectl get pods
-
-              echo "checking the Service"
-              kubectl get svc
-
-              
+          - task: Kubernetes@1
+            displayName: Deploy to AKS
+            inputs:
+              connectionType: 'Kubernetes Service Connection'
+              kubernetesServiceEndpoint: 'Kube-Cluster'
+              command: apply
+              arguments: '-f Kubernetes/'
