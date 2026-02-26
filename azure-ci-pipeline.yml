@@ -9,9 +9,11 @@ pool:
   vmImage: ubuntu-latest
 
 stages:
-  - stage: "Build The Docker Image"
+  - stage: Stage_Docker_Image
+    displayName: "Build-Stage"
     jobs:
-      - job: "Docker Build"
+      - job: Job_Build
+        displayName: "Build_job"
         steps:
           - task: Docker@2
             inputs:
