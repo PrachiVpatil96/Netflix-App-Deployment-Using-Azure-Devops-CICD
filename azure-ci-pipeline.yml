@@ -13,7 +13,7 @@ stages:
     displayName: "Build-Stage"
     jobs:
       - job: Job_Build
-        displayName: "Build_job"
+        displayName: "Build"
         steps:
           - task: Docker@2
             inputs:
