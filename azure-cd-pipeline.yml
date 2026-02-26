@@ -1,0 +1,28 @@
+pipeline:
+
+trigger: none
+
+resources:
+  pipelines:
+    - pipeline: ciPipeline
+      source: azure-ci-pipeline.yml
+      trigger: true
+
+stages:
+  - stage: Deploy-Stage
+    displayName: "Deploy-Stage"
+    jobs:
+      - job: Deploy-App
+        displayName: "Deploy-App"
+        steps:
+          - script: 
+              echo "Deploying Manifest file"
+              kubeclt apply -f kubernetes/
+
+              echo "Checking the Status of Pods"
+              kubectl get pods
+
+              echo "checking the Service"
+              kubectl get svc
+
+              

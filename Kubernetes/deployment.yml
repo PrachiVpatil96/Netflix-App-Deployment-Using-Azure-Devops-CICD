@@ -20,7 +20,7 @@ spec:
         app: netflix
     spec:
       containers:
-        - image: prachiii123/nnetflix:1.1
+        - image: prachiii123/nnetflix:latest
           name: netflix
           ports:
             - containerPort: 80
