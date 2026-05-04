@@ -1,4 +1,4 @@
-# **Automated Docker Image Build & Push with Jenkins** 
+# **Automated Docker Image Build & Push with Jenkins**
 
 ## **Project Overview**
 This project sets up a **Jenkins CI/CD pipeline** to **automate the building and pushing of Docker images** to Docker Hub.
